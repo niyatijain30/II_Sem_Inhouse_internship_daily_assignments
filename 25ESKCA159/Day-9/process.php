@@ -1,0 +1,22 @@
+<?php
+
+include('dc_connect.php');
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+$name = mysqli_real_escape_string($conn, $_POST['name']);
+$email = mysqli_real_escape_string($conn, $_POST['email']);
+$branch = mysqli_real_escape_string($conn, $_POST['branch']);
+$cgpa = $_POST['cgpa'];
+
+if($cgpa < 0 || $cgpa > 10){
+    echo "Invalid CGPA";
+}
+$sql = "INSERT INTO student (name, email, branch, cgpa)
+VALUES ('$name', '$email', '$branch', '$cgpa')";
+
+if (mysqli_query($conn, $sql)) {
+echo "Student Registered Successfully!";
+} else {
+echo "Error: " . mysqli_error($conn);
+}
+}
+?>
